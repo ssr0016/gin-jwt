@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"gin-jwt/data/request"
 	"gin-jwt/data/response"
 	"gin-jwt/helper"
@@ -26,6 +27,7 @@ func (controller *AuthenticationController) Login(ctx *gin.Context) {
 	helper.ErrorPanic(err)
 
 	token, err_token := controller.authenticationService.Login(loginRequest)
+	fmt.Println(err_token)
 	if err_token != nil {
 		webResponse := response.Response{
 			Code:    http.StatusBadRequest,

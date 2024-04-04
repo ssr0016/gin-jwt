@@ -26,7 +26,6 @@ func NewAuthenticationServiceImpl(userRepository repository.UserRepository, vali
 
 // Login implements AuthenticationService.
 func (a *AuthenticationServiceImpl) Login(users request.LoginRequest) (string, error) {
-
 	// Find username in database
 	new_user, user_err := a.UserRepository.FindByUsername(users.Username)
 	if user_err != nil {
@@ -41,7 +40,7 @@ func (a *AuthenticationServiceImpl) Login(users request.LoginRequest) (string, e
 	}
 
 	// Generate Token
-	token, err := utils.GenerateToken(config.TokenExpiresIn, new_user, config.TokenSecret)
+	token, err := utils.GenerateToken(config.TokenExpiresIn, new_user.Id, config.TokenSecret)
 	helper.ErrorPanic(err)
 	return token, nil
 }
