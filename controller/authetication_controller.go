@@ -54,4 +54,13 @@ func (controller *AuthenticationController) Register(ctx *gin.Context) {
 	createUserRequest := request.CreateUserRequest{}
 	err := ctx.ShouldBindJSON(&createUserRequest)
 	helper.ErrorPanic(err)
+
+	controller.authenticationService.Register(createUserRequest)
+	webResponse := response.Response{
+		Code:    200,
+		Status:  "OK",
+		Message: "Successfully create user!",
+		Data:    nil,
+	}
+	ctx.JSON(http.StatusOK, webResponse)
 }
